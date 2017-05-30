@@ -1,0 +1,27 @@
+# wikipedia-articles-feed
+
+**A realtime [hyperdrive](https://github.com/mafintosh/hyperdrive) feed of Wikipedia articles.**
+
+[![npm version](https://img.shields.io/npm/v/wikipedia-articles-feed.svg)](https://www.npmjs.com/package/wikipedia-articles-feed)
+[![build status](https://img.shields.io/travis/derhuerst/wikipedia-articles-feed.svg)](https://travis-ci.org/derhuerst/wikipedia-articles-feed)
+![ISC-licensed](https://img.shields.io/github/license/derhuerst/wikipedia-articles-feed.svg)
+[![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
+
+
+## Installing
+
+```shell
+npm install wikipedia-articles-feed
+```
+
+
+## Usage
+
+```js
+todo
+```
+
+
+## Contributing
+
+If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/wikipedia-articles-feed/issues).
