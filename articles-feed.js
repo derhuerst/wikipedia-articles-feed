@@ -1,5 +1,6 @@
 'use strict'
 
+const pipe = require('pump')
 const readEdits = require('wikipedia-edits-stream')
 const filter = require('stream-filter')
 const through = require('through2')
@@ -10,36 +11,42 @@ const fetchPageRevision = require('./fetch-page-revision')
 // https://www.mediawiki.org/wiki/Manual:Recentchanges_table
 // https://www.mediawiki.org/wiki/Manual:Log_actions
 // https://meta.wikimedia.org/wiki/Help:Namespace#List_of_namespaces
-const isEnglishWikipediaEdit = (edit) => {
-	return edit.wiki === 'enwiki'
-	&& (edit.type === 'edit' || edit.type === 'new')
-	&& edit.namespace === 0 // todo: categories (namespace 14)
+const isEnglishWikipediaChange = (c) => {
+	return c.wiki === 'enwiki'
+	&& (c.type === 'edit' || c.type === 'new')
+	&& c.namespace === 0 // todo: categories (namespace 14)
 }
 
-const parseEdit = (edit, _, cb) => {
-	Promise.all([
-		fetchPageRevision(edit.revision.old),
-		fetchPageRevision(edit.revision.new)
-	])
-	.then(([oldRevision, newRevision]) => {
+const parseChange = (c, _, cb) => {
+	fetchPageRevision(c.revision.new)
+	.then((content) => {
 		cb(null, {
 			// todo: id?, bot, user, timestamp, minor
-			type: edit.type,
-			pageTitle: edit.title,
-			pageURL: edit.meta.uri,
-			oldRevision: {id: edit.revision.old, content: oldRevision},
-			newRevision: {id: edit.revision.new, content: newRevision},
-			server: edit.server_url,
-			comment: edit.comment
+			type: c.type,
+			pageTitle: c.title,
+			pageSlug: c.meta.uri.split('wiki/')[1], // todo: make this robust
+			pageURL: c.meta.uri,
+			oldRevision: c.revision.old,
+			newRevision: c.revision.new,
+			newContent: content,
+			server: c.server_url,
+			comment: c.comment
 		})
 	})
 	.catch(cb)
 }
 
 const articlesFeed = () => {
-	return readEdits() // todo: error handling
-	.pipe(filter.obj(isEnglishWikipediaEdit)) // todo: error handling
-	.pipe(through.obj(parseEdit)) // todo: error handling
+	const out = through.obj(parseChange)
+
+	pipe(
+		readEdits(),
+		filter.obj(isEnglishWikipediaChange),
+		out,
+		(err) => out.emit('error', err)
+	)
+
+	return out
 }
 
 module.exports = articlesFeed

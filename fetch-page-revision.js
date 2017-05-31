@@ -30,6 +30,10 @@ const fetchPageRevision = (revision) => {
 		return res.json()
 	})
 	.then((body) => {
+		if (body.query.badrevids) {
+			throw new Error('bad revision ID ' + body.query.badrevids[0].revid)
+		}
+
 		const pageId = Object.keys(body.query.pages)[0]
 		const page = body.query.pages[pageId]
 		if (!page) throw new Error('invalid response, missing page ' + pageId)
