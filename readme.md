@@ -18,7 +18,16 @@ npm install wikipedia-articles-feed
 ## Usage
 
 ```js
-todo
+const createFeed = require('wikipedia-articles-feed')
+
+createFeed('some-path.hyperdrive', console.log, console.error)
+```
+
+```
+Usage:
+    wikipedia-articles-feed <hyperdrive-dir>
+Arguments:
+    hyperdrive-dir  Which hyperdrive to write to.
 ```
 
 

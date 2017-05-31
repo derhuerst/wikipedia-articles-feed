@@ -3,10 +3,14 @@
 	"description": "A realtime hyperdrive feed of Wikipedia articles.",
 	"version": "0.1.0",
 	"main": "index.js",
+	"bin": {
+		"wikipedia-articles-feed": "./cli.js"
+	},
 	"files": [
 		"index.js",
 		"articles-feed.js",
-		"fetch-page-revision.js"
+		"fetch-page-revision.js",
+		"cli.js"
 	],
 	"keywords": [
 		"wikipedia", "p2p", "hyperdrive", "hypercore", "dat", "realtime"
@@ -22,6 +26,7 @@
 	"dependencies": {
 		"fetch-ponyfill": "^4.0.0",
 		"hyperdrive": "^9.3.0",
+		"minimist": "^1.2.0",
 		"pump": "^1.0.2",
 		"stream-filter": "^2.1.0",
 		"through2": "^2.0.3",
