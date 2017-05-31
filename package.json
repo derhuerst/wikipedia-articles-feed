@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"files": [
 		"index.js",
+		"articles-feed.js",
 		"fetch-page-revision.js"
 	],
 	"keywords": [
@@ -19,7 +20,10 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"fetch-ponyfill": "^4.0.0"
+		"fetch-ponyfill": "^4.0.0",
+		"stream-filter": "^2.1.0",
+		"through2": "^2.0.3",
+		"wikipedia-edits-stream": "^0.1.0"
 	},
 	"devDependencies": {
 		"tape": "^4.6.3",
