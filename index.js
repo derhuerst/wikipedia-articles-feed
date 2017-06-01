@@ -10,7 +10,7 @@ const createFeed = (dir, onProgress, onError) => {
 	articlesFeed()
 	.on('error', onError)
 	.on('data', (change) => {
-		archive.writeFile(change.pageSlug + '.wikitext', change.newContent, (err) => {
+		archive.writeFile(change.pageSlug + '.html', change.newContent, (err) => {
 			if (err) onError(err, change)
 			else onProgress(change)
 		})

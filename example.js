@@ -11,7 +11,8 @@ const onProgress = (change) => {
 }
 
 const onError = (err, change) => {
-	console.error(change.type, change.pageTitle, err.message)
+	if (change) console.error(change.type, change.pageTitle, err.message)
+	else console.error(err.message)
 	process.exitCode = 1
 }
 

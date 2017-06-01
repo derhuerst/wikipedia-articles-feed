@@ -3,15 +3,12 @@
 const {stringify} = require('querystring')
 const {fetch} = require('fetch-ponyfill')()
 
-const endpoint = 'https://en.wikipedia.org/w/api.php'
+const endpoint = 'https://en.wikipedia.org/wiki/'
 
-const fetchPageRevision = (revision) => {
-	const target = endpoint + '?' + stringify({
-		action: 'query',
-		format: 'json',
-		prop: 'revisions',
-		rvprop: 'content',
-		revids: revision + ''
+const fetchPageRevision = (slug, revision) => {
+	const target = endpoint + slug + '?' + stringify({
+		useformat: 'mobile',
+		oldid: revision + ''
 	})
 
 	return fetch(target, {
@@ -27,21 +24,12 @@ const fetchPageRevision = (revision) => {
 			err.statusCode = res.status
 			throw err
 		}
-		return res.json()
+		return res.text()
 	})
-	.then((body) => {
-		if (body.query.badrevids) {
-			throw new Error('bad revision ID ' + body.query.badrevids[0].revid)
-		}
+	.then((html) => {
+		// todo: clean HTML
 
-		const pageId = Object.keys(body.query.pages)[0]
-		const page = body.query.pages[pageId]
-		if (!page) throw new Error('invalid response, missing page ' + pageId)
-
-		const revision = page.revisions[0]
-		if (!revision) throw new Error('invalid response, missing revisions')
-
-		return revision['*']
+		return html
 	})
 }
 

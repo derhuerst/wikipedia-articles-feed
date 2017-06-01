@@ -18,20 +18,22 @@ const isEnglishWikipediaChange = (c) => {
 }
 
 const parseChange = (c, _, cb) => {
-	fetchPageRevision(c.revision.new)
+	const change = {
+		// todo: id?, bot, user, timestamp, minor
+		type: c.type,
+		pageTitle: c.title,
+		pageSlug: c.meta.uri.split('wiki/')[1], // todo: make this robust
+		pageURL: c.meta.uri,
+		oldRevision: c.revision.old,
+		newRevision: c.revision.new,
+		server: c.server_url,
+		comment: c.comment
+	}
+
+	fetchPageRevision(change.pageSlug, change.newRevision)
 	.then((content) => {
-		cb(null, {
-			// todo: id?, bot, user, timestamp, minor
-			type: c.type,
-			pageTitle: c.title,
-			pageSlug: c.meta.uri.split('wiki/')[1], // todo: make this robust
-			pageURL: c.meta.uri,
-			oldRevision: c.revision.old,
-			newRevision: c.revision.new,
-			newContent: content,
-			server: c.server_url,
-			comment: c.comment
-		})
+		change.newContent = content
+		cb(null, change)
 	})
 	.catch(cb)
 }
