@@ -24,6 +24,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"cheerio": "^1.0.0-rc.1",
 		"fetch-ponyfill": "^4.0.0",
 		"hyperdrive": "^9.3.0",
 		"minimist": "^1.2.0",

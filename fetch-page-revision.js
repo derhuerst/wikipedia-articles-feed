@@ -2,6 +2,7 @@
 
 const {stringify} = require('querystring')
 const {fetch} = require('fetch-ponyfill')()
+const cheerio = require('cheerio')
 
 const endpoint = 'https://en.wikipedia.org/wiki/'
 
@@ -27,9 +28,28 @@ const fetchPageRevision = (slug, revision) => {
 		return res.text()
 	})
 	.then((html) => {
-		// todo: clean HTML
+		const $ = cheerio.load(html)
 
-		return html
+		$('link[rel="stylesheet"]').remove()
+		$('link[rel="dns-prefetch"]').remove()
+		$('script').remove()
+		$('.banner-container').remove()
+		$('.header-container').remove()
+		$('#mw-revision-info').remove()
+		$('#mw-revision-nav').remove()
+
+		const fileLink = '/wiki/File:'
+		$('a.image').each((i, node) => {
+			if (node.attribs.href && node.attribs.href.slice(0, 11) === fileLink) {
+				const $a = $(node)
+				const isLazyLoaded = !!$a.find('.lazy-image-placeholder').length
+				if (isLazyLoaded) $a.html($a.find('noscript').text())
+			}
+		})
+
+		$('head').append($('<link rel="stylesheet" href="mobile.css"/>'))
+
+		return $.html()
 	})
 }
 
