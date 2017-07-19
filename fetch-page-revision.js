@@ -1,7 +1,7 @@
 'use strict'
 
 const {stringify} = require('querystring')
-const {fetch} = require('fetch-ponyfill')()
+const {fetch} = require('fetch-ponyfill')({Promise: require('pinkie-promise')})
 const cheerio = require('cheerio')
 
 const endpoint = 'https://en.wikipedia.org/wiki/'
@@ -35,8 +35,7 @@ const fetchPageRevision = (slug, revision) => {
 		$('script').remove()
 		$('.banner-container').remove()
 		$('.header-container').remove()
-		$('#mw-revision-info').remove()
-		$('#mw-revision-nav').remove()
+		$('.mw-revision').remove()
 
 		const fileLink = '/wiki/File:'
 		$('a.image').each((i, node) => {
@@ -47,7 +46,7 @@ const fetchPageRevision = (slug, revision) => {
 			}
 		})
 
-		$('head').append($('<link rel="stylesheet" href="mobile.css"/>'))
+		$('head').append($('<link rel="stylesheet" href="/static/mobile.css"/>'))
 
 		return $.html()
 	})
