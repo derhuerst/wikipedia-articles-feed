@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"files": [
 		"index.js",
-		"fetch-page-revision.js"
+		"lib"
 	],
 	"keywords": [
 		"wikipedia",
