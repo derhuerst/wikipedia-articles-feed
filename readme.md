@@ -31,6 +31,12 @@ Arguments:
 ```
 
 
+## Related
+
+- [wikipedia-edits-stream](https://github.com/derhuerst/wikipedia-edits-stream) – A live stream of page edits on Wikipedia.
+- [fetch-wikipedia-page-revision](https://github.com/derhuerst/fetch-wikipedia-page-revision) – Fetch a revision of a Wikipedia page as mobile HTML.
+
+
 ## Contributing
 
 If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/wikipedia-articles-feed/issues).

@@ -4,8 +4,7 @@ const pipe = require('pump')
 const readEdits = require('wikipedia-edits-stream')
 const filter = require('stream-filter')
 const through = require('through2')
-
-const fetchPageRevision = require('./fetch-page-revision')
+const fetchPageRevision = require('fetch-wikipedia-page-revision')
 
 // https://www.mediawiki.org/wiki/Manual:RCFeed#Properties
 // https://www.mediawiki.org/wiki/Manual:Recentchanges_table
