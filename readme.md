@@ -1,7 +1,8 @@
 # wikipedia-articles-feed
 
-**A realtime [hyperdrive](https://github.com/mafintosh/hyperdrive) feed of Wikipedia articles.**
+**A realtime feed of recently edited Wikipedia articles.** Deprecated in favor of [`build-wikipedia-feed`](https://github.com/derhuerst/build-wikipedia-feed#build-wikipedia-feed).
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 [![npm version](https://img.shields.io/npm/v/wikipedia-articles-feed.svg)](https://www.npmjs.com/package/wikipedia-articles-feed)
 [![build status](https://img.shields.io/travis/derhuerst/wikipedia-articles-feed.svg)](https://travis-ci.org/derhuerst/wikipedia-articles-feed)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/wikipedia-articles-feed.svg)

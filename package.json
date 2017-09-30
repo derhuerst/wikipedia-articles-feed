@@ -1,6 +1,6 @@
 {
 	"name": "wikipedia-articles-feed",
-	"description": "A realtime feed of Wikipedia articles.",
+	"description": "A realtime feed of recently edited Wikipedia articles.",
 	"version": "0.1.0",
 	"main": "index.js",
 	"files": [
